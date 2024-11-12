@@ -10,8 +10,17 @@ public class Task {
     }
 
     public int getPriority() {
-        
+        return priorityNum;
     }
+}
+
+public static void newTask(Scanner scnr) {
+    System.out.println("Task Priority:");
+    int priority = scnr.nextInt();
+    System.out.println("Task details:");
+    String detail = scnr.nextLine();
+
+    Task task = new Task(priority, detail);
 }
 
 public static void main(String[] args) {
