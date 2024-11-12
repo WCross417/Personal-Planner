@@ -27,7 +27,27 @@ public static void main(String[] args) {
     Scanner scnr = new Scanner(System.in);
     
 
+public static void main(String[] args) {
+    Scanner scnr = new Scanner(System.in);
+    
 
+public class ToDoList {
+    public static void main(String[] args) {
+     Scanner scnr = new Scanner(System.in);
+    ArrayList<Task> taskList = new ArrayList<>();
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\nTo-Do List Menu: ");
+            System.out.println("1. Add a Task ");
+            System.out.println("2. View All Tasks ");
+            System.out.println("3. Exit ");
+
+            int choices = scnr.nextInt();
+            scnr.nextLine();
+        }
+    }
+}
 
 
 
