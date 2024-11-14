@@ -41,7 +41,7 @@ public class Planner {
         tasks.removeIf(task -> task.getId() == id);
         System.out.println("Task deleted successfully.");
     }
-}
+
 public static void main(String[] args) {
     Planner planner = new Planner();
     Scanner scnr = new Scanner(System.in);
@@ -83,7 +83,8 @@ public static void main(String[] args) {
             default:
             System.out.println("Invalid option. Try again.");
         }
-        scnr.close();
+        
     }
-
+scnr.close();
+}
 }
