@@ -19,7 +19,8 @@ public class Planner {
     public void viewTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks available.");
-        } else {
+        } 
+        else {
             for (Task task : tasks) {
                 System.out.println(task);
             }
@@ -57,6 +58,7 @@ public static void main(String[] args) {
         System.out.print("Choose an option: ");
 
         int choice = scnr.nextInt();
+        scnr.nextLine();
 
         switch (choice) {
             case 1:
@@ -85,6 +87,6 @@ public static void main(String[] args) {
         }
         
     }
-scnr.close();
+    scnr.close();
 }
 }
