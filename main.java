@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Planner {
     private ArrayList<Task> tasks;
@@ -43,6 +44,22 @@ public class Planner {
         System.out.println("Task deleted successfully.");
     }
 
+    public void setTimerForTask(int id, long delayInSeconds) {
+        for (Task task : tasks) {
+        if (task.getId() == id) {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                public void run() {
+                System.out.println("Reminder: Task \"" + task.getDescription() + "\" is due!");
+                    }
+            }, delayInSeconds * 1000); // Convert seconds to milliseconds
+            System.out.println("Timer set for task: " + task.getDescription());
+                    return;
+            }
+        }
+        System.out.println("Task not found.");
+    }
+    
 public static void main(String[] args) {
     Planner planner = new Planner();
     Scanner scnr = new Scanner(System.in);
