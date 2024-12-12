@@ -1,8 +1,9 @@
 package main.PersonalPlanner.App;
 
+import java.util.*;
+
 import main.PersonalPlanner.Features.*;
 
-import java.util.*;
 /* 
  *
  * This is the main object that runs the program, creating and holding tasks,
@@ -19,34 +20,37 @@ public class Planner {
 
     
     public void start() {
-        System.out.println("---- Personal Planner Application ----");
-        System.out.println("--------------------------------------");
+        System.out.println("|------------------------------------|");
+        System.out.println("|    Personal Planner Application    |");
+        System.out.println("|------------------------------------|");
         while (Planner.running) {
             showMenu();
-            int action = readAction();
+            int action = read();
             execute(action);
         }
 
     }
 
     public void showMenu() {
-        System.out.println("\n1. Add Task");
-        System.out.println("2. View Tasks");
-        System.out.println("3. Delete Task");
-        System.out.println("4. Edit Task");
-        System.out.println("5. Mark Task Done");
-        System.out.println("6. Save Planner");
-        System.out.println("7. Read Planner File");
-        System.out.println("8. Sort by Project Name");
-        System.out.println("9. Sort by Due Date");
-        System.out.println("10. Exit\n");
+        System.out.println("\n\n|------------------------------------|");
+        System.out.println("|         1. Add Task                |");
+        System.out.println("|         2. View Tasks              |");
+        System.out.println("|         3. Delete Task             |");
+        System.out.println("|         4. Edit Task               |");
+        System.out.println("|         5. Mark Task Done          |");
+        System.out.println("|         6. Save Planner            |");
+        System.out.println("|         7. Read Planner File       |");
+        System.out.println("|         8. Sort by Project Name    |");
+        System.out.println("|         9. Sort by Due Date        |");
+        System.out.println("|         10. Exit                   |");
+        System.out.println("|------------------------------------|\n\n");
     }
 
-    public int readAction() {
+    public int read() {
         List <Integer> available = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         while (true) {
             try {
-                System.out.println("Choose option:");
+                System.out.print("Choose option:");
                 Scanner scnr = new Scanner(System.in);
                 int choice = scnr.nextInt();
                 if (available.contains(choice)) {
@@ -63,120 +67,109 @@ public class Planner {
     }
 
     public void execute(int actionNum) {
-        Actions user;
+        Actions action;
         switch (actionNum) {
+
             case Actions.ADD_TASK:
-            break;
+                action = new AddTask();
+                action.showInfo();
+                String input = action.readIn();
+                if (!input.equals("0")) {
+                    action.executeAction(input);
+                }
+                break;
+
             case Actions.VIEW_TASKS:
-            break;
+                if (tasks.size() > 0) {
+                    action = new ViewTasks();
+                    System.out.println("\n\n");
+                    action.executeAction(null);
+                }
+                else {
+                    System.out.println("Tasks Empty; Add Tasks.");
+                }
+                break;
+
             case Actions.DELETE_TASK:
-            break;
-            case Actions.EDIT_TASK:
-            break;
-            case Actions.MARK_AS_DONE:
-            break;
-            case Actions.SAVE_TO_FILE:
-            break;
-            case Actions.READ_FROM_FILE:
-            break;
-            case Actions.SORT_BY_PROJECT:
-            break;
-            case Actions.SORT_BY_DATE:
-            break;
-
-            
-        }
-    }
-
-
-
-    
-
-    /*public void addTask(String description) {
-        tasks.add(new Task(nextId++, description));
-        System.out.println("Task added successfully!");
-    }
-
-    public void viewTasks() {
-        if (tasks.isEmpty()) {
-            System.out.println("No tasks available.");
-        } 
-        else {
-            for (Task task : tasks) {
-                System.out.println(task);
-            }
-        }
-    }
-    
-    public void markTaskAsCompleted(int id) {
-        for (Task task : tasks) {
-            if (task.getId() == id) {
-                task.setCompleted(true);
-                System.out.println("Task marked as completed.");
-                return;
-            }
-        }
-        System.out.println("Task not found.");
-    }
-
-    public void deleteTask(int id) {
-        tasks.removeIf(task -> task.getId() == id);
-        System.out.println("Task deleted successfully.");
-    }
-
-    public void setTimerForTask(int id, long delayInSeconds) {
-        for (Task task : tasks) {
-        if (task.getId() == id) {
-            Timer timer = new Timer();
-            timer.schedule(new TimerTask() {
-                public void run() {
-                System.out.println("Reminder: Task \"" + task.getDescription() + "\" is due!");
+                if (tasks.size() > 0) {
+                    action = new DeleteTask();
+                    action.showInfo();
+                    String id = action.readIn();
+                    if (!id.equals("0")) {
+                        action.executeAction(id);
                     }
-            }, delayInSeconds * 1000); // Convert seconds to milliseconds
-            System.out.println("Timer set for task: " + task.getDescription());
-                    return;
-            }
-        }
-        System.out.println("Task not found.");
-    }
+                }
+                else {
+                    System.out.println("Tasks Empty; Add Tasks.");
+                }
+                break;
 
-/*public static void main(String[] args) {
-    Planner planner = new Planner();
-    Scanner scnr = new Scanner(System.in);
-    boolean running = true; 
+            case Actions.EDIT_TASK:
+                if (tasks.size() > 0) {
+                    action = new EditTask();
+                    action.showInfo();
+                    String info = action.readIn();
+                    if (!info.equals("0")) {
+                        action.executeAction(info);
+                    }
+                }
+                else {
+                    System.out.println("Tasks Empty; Add Tasks.");
+                }
+                break;
 
-    while (running) {
-        
-      
-        int choice = scnr.nextInt();
-        scnr.nextLine();
+            case Actions.MARK_AS_DONE:
+                if (tasks.size() > 0) {
+                    action = new MarkAsDone();
+                    action.showInfo();
+                    String id = action.readIn();
+                    if (!id.equals("0")) {
+                        action.executeAction(id);
+                    }
 
-        switch (choice) {
-            case 1:
-                System.out.print("Enter task description: ");
-                String description = scnr.nextLine();
-                planner.addTask(description);
+                }
+                else {
+                    System.out.println("Tasks Empty; Add Tasks.");
+                }
                 break;
-            case 2:
-                planner.viewTasks();
+
+            case Actions.SAVE_TO_FILE:
+                if (tasks.size() > 0) {
+                    action = new SaveToFile();
+                    action.showInfo();
+                    String file = action.readIn();
+                    if (!file.equals("0")) {
+                        action.executeAction(file);
+                    }
+                }
+                else {
+                    System.out.println("Tasks Empty; Add Tasks.");
+                }
                 break;
-            case 3:
-                System.out.print("Enter task ID to mark as completed: ");
-                int idToComplete = scnr.nextInt();
-                planner.markTaskAsCompleted(idToComplete);
+
+            case Actions.READ_FROM_FILE:
+                action = new ReadFromFile();
+                action.showInfo();
+                String file = action.readIn();
+                if (!file.equals("0")) {
+                    action.executeAction(file);
+                }
+                break; 
+
+            case Actions.SORT_BY_PROJECT:
+                action = new SortByProject();
+                action.executeAction(null);
+                break; 
+
+            case Actions.SORT_BY_DATE:
+                action = new SortByDate();
+                action.executeAction(null);
                 break;
-            case 4:
-                System.out.print("Enter task ID to delete: ");
-                int idToDelete = scnr.nextInt();
-                planner.deleteTask(idToDelete);
-                break;
-            case 5:
+
+            case Actions.EXIT:
                 running = false;
+                System.out.println("\n\nGoodbye!\n\n");
                 break;
-            default:
-            System.out.println("Invalid option. Try again.");
         }
-        
     }
-    scnr.close(); */
 }
