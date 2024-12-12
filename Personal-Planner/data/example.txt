@@ -1,0 +1,8 @@
+1,  Clean Room,  2024-12-12, In Progress,  Cleaning
+2,  Vacuum,  2024-12-12, In Progress,  Cleaning
+3,  Dust,  2024-12-12, In Progress,  Cleaning
+4,  Meal Prep,  2024-12-15, In Progress,  Weekly Prep
+5,  Pack Bag,  2024-12-15, In Progress,  Weekly Prep
+11,  Wash Clothes,  2024-12-13, In Progress,  Cleaning
+12,  Fold Laundry,  2024-12-13, In Progress,  Cleaning
+32, Write Emails, 2024-12-11, In Progress, ASAP
